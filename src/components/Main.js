@@ -9,11 +9,12 @@ export default class Main extends Component {
   state = {
     newTask: '',
     tasks: [],
+    index: -1,
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { tasks } = this.state;
+    const { tasks, index } = this.state;
     let { newTask } = this.state;
     newTask = newTask.trim();
 
@@ -21,9 +22,20 @@ export default class Main extends Component {
 
     const newsTasks = [...tasks];
 
-    this.setState({
-      tasks: [...newsTasks, newTask],
-    });
+    if (index === -1) {
+      this.setState({
+        tasks: [...newsTasks, newTask],
+        newTask: '',
+      });
+    } else {
+      newsTasks[index] = newTask;
+
+      this.setState({
+        tasks: [...newsTasks],
+        index: -1,
+        newTask: '',
+      });
+    }
   };
 
   handleChange = (e) => {
@@ -33,7 +45,12 @@ export default class Main extends Component {
   };
 
   handleEdit = (e, index) => {
+    const { tasks } = this.state;
 
+    this.setState({
+      index,
+      newTask: tasks[index],
+    });
   };
 
   handleDelete = (e, index) => {
