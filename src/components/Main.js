@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-// Form
-import { BsPlusLg, BsPencilSquare, BsXSquare } from 'react-icons/bs';
+import Form from './Form';
+import Tasks from './ListTasks';
 
 import './Main.css';
 
@@ -23,7 +23,7 @@ export default class Main extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { tasks } = this.state;
 
-    if (tasks === prevState.taskas) return;
+    if (tasks === prevState.tasks) return;
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
@@ -86,34 +86,17 @@ export default class Main extends Component {
       <div className="main">
         <h1>Lista de tarefas</h1>
 
-        <form onSubmit={this.handleSubmit} action="#" className="form">
-          <input
-            onChange={this.handleChange}
-            type="text"
-            value={newTask}
-          />
-          <button type="submit" className="btn-submit">
-            <BsPlusLg />
-          </button>
-        </form>
+        <Form
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          newtask={newTask}
+        />
 
-        <ul className="tasks">
-          {tasks.map((task, index) => (
-            <li key={task}>
-              {task}
-              <span>
-                <BsPencilSquare
-                  onClick={(e) => this.handleEdit(e, index)}
-                  className="edit"
-                />
-                <BsXSquare
-                  onClick={(e) => this.handleDelete(e, index)}
-                  className="delete"
-                />
-              </span>
-            </li>
-          ))}
-        </ul>
+        <Tasks
+          tasks={tasks}
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
+        />
       </div>
     );
   }
