@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 
 // Form
-import { BsPlusLg } from 'react-icons/bs';
+import { BsPlusLg, BsPencilSquare, BsXSquare } from 'react-icons/bs';
 
 import './Main.css';
 
 export default class Main extends Component {
   state = {
     newTask: '',
-    tasks: [],
+    tasks: [
+      'Fazer café',
+      'Estudar',
+      'Fazer projeto',
+    ],
   };
 
   handleChange = (e) => {
@@ -18,7 +22,7 @@ export default class Main extends Component {
   };
 
   render() {
-    const { newTask } = this.state;
+    const { newTask, tasks } = this.state;
 
     return (
       <div className="main">
@@ -34,6 +38,18 @@ export default class Main extends Component {
             <BsPlusLg />
           </button>
         </form>
+
+        <ul className="tasks">
+          {tasks.map((task) => (
+            <li key={task}>
+              {task}
+              <span>
+                <BsPencilSquare className="edit" />
+                <BsXSquare className="delete" />
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
