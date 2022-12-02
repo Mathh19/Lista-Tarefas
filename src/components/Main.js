@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
-import Form from './Form';
 import Tasks from './ListTasks';
+import Form from './Form';
 
 import './Main.css';
 
@@ -34,7 +33,7 @@ export default class Main extends Component {
     let { newTask } = this.state;
     newTask = newTask.trim();
 
-    if (tasks.indexOf(newTask) !== -1) return;
+    if (tasks.indexOf(newTask) !== -1 || newTask === '') return;
 
     const newsTasks = [...tasks];
 
@@ -70,6 +69,9 @@ export default class Main extends Component {
   };
 
   handleDelete = (e, index) => {
+    // eslint-disable-next-line no-alert
+    const confirmDeleteMessage = window.confirm('Você quer mesmo deletar essa tarefa ?');
+    if (!confirmDeleteMessage) return;
     const { tasks } = this.state;
     const newsTasks = [...tasks];
     newsTasks.splice(index, 1);
@@ -89,7 +91,7 @@ export default class Main extends Component {
         <Form
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
-          newtask={newTask}
+          newTask={newTask}
         />
 
         <Tasks
@@ -97,6 +99,7 @@ export default class Main extends Component {
           handleEdit={this.handleEdit}
           handleDelete={this.handleDelete}
         />
+
       </div>
     );
   }

@@ -16,7 +16,6 @@ export default function Form({ handleSubmit, handleChange, newTask }) {
         <BsPlusLg />
       </button>
     </form>
-
   );
 }
 
